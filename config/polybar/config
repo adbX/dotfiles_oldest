@@ -1,0 +1,306 @@
+;=====================================================
+;
+;
+;               ADB's Polybar Config
+;
+;
+;=====================================================
+
+[colors]
+background = ${xrdb:background}
+background-alt = ${xrdb:background}
+foreground = ${xrdb:foreground}
+foreground-alt = ${xrdb:color2}
+primary = ${xrdb:color5}
+secondary = ${xrdb:color6}
+alert = ${xrdb:color6}
+
+[bar/top]
+monitor = ${env:MONITOR:HDMI-0}
+monitor-fallback = ${env:MONITOR:DP-0}
+
+width = 80%
+height = 27
+
+offset-x = 10%
+fixed-center = false
+
+override-redirect = true
+wm-restack = i3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = xos4 Terminus:pixelsize=13;1
+font-1 = unifont:fontformat=truetype:size=13:antialias=false;0
+font-2 = "Wuncon Siji:pixelsize=13;1"
+font-3 = FontAwesome:pixelsize=13;0
+
+modules-left = i3 title
+modules-center = date pavolume
+modules-right = xbacklight memory wlan eth battery temperature powermenu cpu
+
+tray-position = right
+tray-padding = 0
+;tray-transparent = true
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/title]
+type = internal/xwindow
+label-maxlen = 50
+format-padding = 5
+format-foregroud = ${colors.foreground}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+strip-wsnumbers = true
+pin-workspaces = true
+
+label-mode-padding = 5
+
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-padding = 1
+label-visible-foreground = ${colors.foreground}
+label-visible-padding = 1
+label-focused-foreground = ${colors.foreground}
+label-focused-padding = 1
+label-urgent-padding = 2
+
+[module/xbacklight]
+type = internal/xbacklight
+output = DP-0
+enable-scroll=true
+
+format = <label> <bar>
+label = Brightness: 
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+format = <label>
+label = CPU %percentage%
+; interval = 2
+; format-prefix = " "
+; format-prefix-foreground = ${colors.foreground-alt}
+; format-underline = #f90000
+
+
+[module/memory]
+type = internal/memory
+label = %gb_used%/%gb_free%
+; [module/memory]
+; type = internal/memory
+; interval = 2
+; format-prefix = " "
+; format-prefix-foreground = ${colors.foreground-alt}
+; format-underline = #4bffdc
+; label = %percentage_used%%
+
+[module/wlan]
+type = internal/network
+interface = wlp110s0
+
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <animation-packetloss> <label-connected>
+
+label-connected = %essid%: %downspeed:9%
+
+label-disconnected = not connected
+
+[module/eth]
+type = internal/network
+interface = enp0s25
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+date = "%A, %m/%d"
+time = "%I:%M %p"
+label = %date% %time%
+
+[module/pavolume]
+type = custom/script
+interval = 2
+exec = ~/.config/polybar/pavolume.sh
+
+click-right = exec pavucontrol
+click-left = ~/.config/polybar/pavolume.sh --togmute
+scroll-up = ~/.config/polybar/pavolume.sh --up
+scroll-down = ~/.config/polybar/pavolume.sh --down
+
+label = %output%
+label-foreground = ${colors.foregroud}
+format-padding = 1
+; [module/volume]
+; type = internal/volume
+;
+; format-volume = <label-volume> <bar-volume>
+; label-volume = ""
+; label-volume-foreground = ${root.foreground}
+; label-muted = muted
+;
+; bar-volume-width = 10
+; bar-volume-gradient = true
+; bar-volume-indicator = |
+; bar-volume-indicator-font = 2
+; bar-volume-fill = ─
+; bar-volume-fill-font = 2
+; bar-volume-empty = ─
+; bar-volume-empty-font = 2
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
