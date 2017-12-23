@@ -10,6 +10,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 # polybar example &
 # Launch bar1 and bar2
 polybar top &
+polybar duplicate &
 # polybar transparenthack &
 # polybar tp2 &
 

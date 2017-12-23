@@ -22,12 +22,12 @@ urxvt.saveLines: 1000000
 
 
 !Clickable URL
-URxvt.perl-ext-common: default,matcher
+URxvt.perl-ext-common: default,matcher,resize-font
 URxvt.matcher.rend.0: Uline Bold fg5
 
 !Font size chage with Ctrl
-URxvt.resize-font.smaller: C-Down
-URxvt.resize-font.bigger: C-Up
+URxvt.resize-font.smaller:	C-Down
+URxvt.resize-font.bigger:	C-Up
 urxvt*transparent: true
 urxvt*shading: 30 
 

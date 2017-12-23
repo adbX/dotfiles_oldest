@@ -160,7 +160,7 @@ exec_always copyq &
 exec i3-sensible-terminal
 exec_always compton -f
 exec_always nm-applet
-exec_always wal -i ~/Downloads/benjamin-hung-340392.jpg
+exec_always wal -i ~/stuff/walls/neon-tokyo-streetside.jpg
 exec_always autorandr -c
 
 #############################
