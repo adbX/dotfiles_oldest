@@ -13,7 +13,7 @@ export PATH=~/stuff/ncsa/spack/bin:$PATH
 export ZSH=/home/adb/.oh-my-zsh
 
 #wal theming
-ZSH_THEME="spaceship"
+ZSH_THEME="sorin"
 
 COMPLETION_WAITING_DOTS="true"
 
@@ -40,16 +40,10 @@ alias ei3='vim ~/.config/i3/config'
 alias ncsa-3='sh ~/.screenlayout/triple_ncsa_vertical_leftmost_middle1080.sh'
 alias dorm-2='sh ~/.screenlayout/dorm-2.sh'
 alias maketest='make clean; make test; ./test'
-alias makemain='make clean; make; ./mp7'
-alias wal-mountain='wal -i ~/stuff/walls/dope\ fade\ 1.jpg'
 alias upug='sudo pacman -Syu'
 alias upytdl='sh ~/stuff/ytdl/moody.sh'
-alias mp7='cd ~/stuff/cs225/mp7; atom .'
 alias rem='sudo pacman -R'
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export EDITOR=vim
-
-
-source "/home/adb/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
